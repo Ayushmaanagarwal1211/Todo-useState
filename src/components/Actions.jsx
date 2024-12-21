@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useDispatch } from 'react-redux'
-import { clearCompleted, markAllCompleted } from '../../reducer/slice'
-
+import Context from './Context'
 export default function Actions() {
-  let dispatch = useDispatch()
+  const {tasks,setTasks,after_task_update} = useContext(Context)
+  function setStatus(status){
+    return tasks.map(data =>{return  {...data, status}})
+  }
   function handleMarkAllCompleted(){
-      dispatch(markAllCompleted())
+    let arr = setStatus("completed")
+      setTasks(arr)
+      after_task_update(arr)
   }
   function handleClearAll(){
-    dispatch(clearCompleted())
+    let arr =  setStatus("active")
+    setTasks(arr)
+    after_task_update(arr)
   }
   return (
     <div className='flex-1 flex justify-center items-center flex-col'>

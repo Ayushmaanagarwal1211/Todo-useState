@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { filter_by_status } from '../../reducer/filterSlice'
-import { getState } from '../../reducer/slice'
-
+import React, { useContext, useEffect, useState } from 'react'
+import Context from './Context'
+let filter_array = ["all","completed","active"]
 export default function FilterByStatus() {
-  let dispatch = useDispatch()
-  let filters = useSelector(state=>state.filter_tasks.filter)
+  const {filter,setFilter} = useContext(Context)
   function handleChange(e){
-      dispatch(filter_by_status(e.target.name))
+      setFilter(e.target.name)
   }
   return (
     <div className='flex-1 flex flex-col justify-center'>
-      <p><input type='radio' onClick={handleChange} checked={filters == "all"} name='all'></input>All</p>
-      <p><input type='radio' onClick={handleChange}  checked={filters == "active"} name='active'></input>Active</p>
-      <p><input type='radio' onClick={handleChange} checked={filters == "completed"}  name='completed'></input>Completed</p>
+      {
+        filter_array.map(data=> <p><input type='radio' onClick={handleChange} checked={filter == data} name={data}></input>{data}</p>)
+      }
     </div>
   )
 }

@@ -1,10 +1,17 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react'
+import React, { useContext, useEffect, useReducer, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addTask } from '../../reducer/slice'
-
+import Context from './Context'
+import { getDateFromBackend } from '../../service/localStorage'
+function genId(){
+    let max = -Infinity
+    for(let i of getDateFromBackend()){
+        max = Math.max(i.id , max)
+    }
+    return max == -Infinity ? 0 : max+1
+  }
 export default function Input() {
     let [task,setTask] = useState({task:"",color:"green",status:"active"})
-    let dispatch = useDispatch()
+    const { tasks,setTasks,after_task_update}  = useContext(Context)
     function handleChange(e){
         let obj = {...task}
         obj[e.target.name] = e.target.value
@@ -12,10 +19,10 @@ export default function Input() {
     }
     function handleAddTask(e){
         if(e.key == 'Enter'){
-            dispatch(addTask(task))
-            let obj = {...task}
-            obj = {task:"" , color:"green",status:"active"}
-            setTask(obj)
+            let arr = [...tasks,{...task, id:genId()}]
+            setTasks(arr)
+            after_task_update(arr)
+            setTask({task:"" , color:"green",status:"active"})
         }
     }
   return (

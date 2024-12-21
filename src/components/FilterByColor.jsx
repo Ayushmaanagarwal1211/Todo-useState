@@ -1,26 +1,22 @@
-import React ,{useState,useEffect} from 'react'
+import React ,{ useContext} from 'react'
 import FilterInput from './FilterInput'
-import { useDispatch, useSelector } from 'react-redux'
-import { filter_by_color } from '../../reducer/filterSlice'
-import { getState } from '../../reducer/slice'
-
+import Context from './Context'
+let colors = ["blue","green","orange","purple","red"]
 export default function FilterByColor() {
-      let dispatch = useDispatch()
+    const {setChoices,choices} = useContext(Context)
       function handleChange(e){
           let name = e.target.name
-          dispatch(filter_by_color(name))
+          if(!colors.includes(name)){return }
+          return  !choices.includes(name) ? 
+          setChoices(prev=>[...prev,name]) :
+          setChoices(choices.filter((data)=>data!==name))
       }
   return (
     <div className='flex-1 justify-center flex items-center flex-col gap-2'>
       <h1>Filter By Color</h1>
-      
-      <FilterInput onChange={handleChange} color={"Green"}/>
-      <FilterInput onChange={handleChange} color={"Blue"}/>
-      <FilterInput onChange={handleChange} color={"Orange"}/>
-      <FilterInput onChange={handleChange} color={"Purple"}/>
-      <FilterInput onChange={handleChange} color={"Red"}/>
-
-     
+      {
+        colors.map((data)=><FilterInput onChange={handleChange} color={data}/>)
+      }
     </div>
   )
 }
