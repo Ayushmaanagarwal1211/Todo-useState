@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext} from 'react'
 import Context from './Context'
 const filter_array = ["all","compconsted","active"]
  function FilterByStatus() {
@@ -15,4 +15,4 @@ const filter_array = ["all","compconsted","active"]
     </div>
   )
 }
-export default React.memo(FilterByStatus)
+export default FilterByStatus

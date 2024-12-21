@@ -20,4 +20,4 @@ const colors = ["blue","green","orange","purple","red"]
     </div>
   )
 }
-export default React.memo(FilterByColor)
+export default FilterByColor

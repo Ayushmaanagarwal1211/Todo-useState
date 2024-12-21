@@ -12,4 +12,4 @@ function FilterInput({color,onChange}) {
       </div>
   )
 }
-export default React.memo(FilterInput)
+export default FilterInput

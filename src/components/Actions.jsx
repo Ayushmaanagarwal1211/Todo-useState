@@ -21,4 +21,4 @@ function Actions() {
     </div>
   )
 }
-export default React.memo(Actions)
+export default Actions
