@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Context from './Context'
-let filter_array = ["all","completed","active"]
-export default function FilterByStatus() {
+const filter_array = ["all","compconsted","active"]
+ function FilterByStatus() {
   const {filter,setFilter} = useContext(Context)
   function handleChange(e){
-      setFilter(e.target.name)
+    if(!filter_array.includes(e.target.name)){return }
+    setFilter(e.target.name)
   }
   return (
     <div className='flex-1 flex flex-col justify-center'>
@@ -14,3 +15,4 @@ export default function FilterByStatus() {
     </div>
   )
 }
+export default React.memo(FilterByStatus)

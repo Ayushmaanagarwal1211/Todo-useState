@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Context from './Context'
 
-export default function FilterInput({color,onChange}) {
-    const { choices}  = useContext(Context)
+function FilterInput({color,onChange}) {
+    const {choices}  = useContext(Context)
   return (
     <div key={color} className="flex w-[200px] m-auto gap-2 items-center justify-between">
         <input checked={choices.includes(color)} onChange={onChange} name={color} type="checkbox" id={color}></input>
@@ -12,3 +12,4 @@ export default function FilterInput({color,onChange}) {
       </div>
   )
 }
+export default React.memo(FilterInput)

@@ -4,24 +4,23 @@ import Context from './Context'
 import { getDateFromBackend } from '../../service/localStorage'
 function genId(){
     let max = -Infinity
-    for(let i of getDateFromBackend()){
+    for(const i of getDateFromBackend()){
         max = Math.max(i.id , max)
     }
     return max == -Infinity ? 0 : max+1
   }
 export default function Input() {
-    let [task,setTask] = useState({task:"",color:"green",status:"active"})
-    const { tasks,setTasks,after_task_update}  = useContext(Context)
+    const [task,setTask] = useState({task:"",color:"green",status:"active"})
+    const { tasks,update_task_array}  = useContext(Context)
     function handleChange(e){
-        let obj = {...task}
+        const obj = {...task}
         obj[e.target.name] = e.target.value
         setTask(obj)
     }
     function handleAddTask(e){
         if(e.key == 'Enter'){
-            let arr = [...tasks,{...task, id:genId()}]
-            setTasks(arr)
-            after_task_update(arr)
+            const arr = [...tasks,{...task, id:genId()}]
+            update_task_array(arr)
             setTask({task:"" , color:"green",status:"active"})
         }
     }

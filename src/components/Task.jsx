@@ -1,42 +1,25 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { FaCheck, FaPen, FaPenToSquare, FaX } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
+import React, { useContext, useState } from "react";
+import { FaCheck,  FaPenToSquare, FaX } from "react-icons/fa6";
 import Context from "./Context";
 
 
 export default function Task({ task }) {
-  let [isEdit, setIsEdit] = useState(false);
-  let [input, setInput] = useState(task.task);
-  let { tasks, setTasks,after_task_update } = useContext(Context);
-  function updateTasks(arr){
-    setTasks(arr);
-    after_task_update(arr)
-    setIsEdit(false);
-  }
+  const [isEdit, setIsEdit] = useState(false);
+  const [input, setInput] = useState(task.task);
+  const { tasks,update_task_array } = useContext(Context);
+ 
   function handleClick() {
-    console.log(task.id)
-    let arr = tasks.map((data)=>{
-      if(data.id == task.id){
-        return {...data,status: task.status == "active" ? "completed" : "active",
-        }
-      }
-      return data
-    })
-    updateTasks(arr);
+    const arr = tasks.map((data)=>data.id == task.id ? {...data,status: task.status == "active" ? "compconsted" : "active"} : data)
+    update_task_array(arr);
   }
   function handleEdit() {
-    let arr = tasks.map((data)=>{
-      if(data.id == task.id){
-        return {...data,task: input,
-        }
-      }
-      return data
-    })
-    updateTasks(arr);
+    const arr = tasks.map((data)=>data.id == task.id ? {...data,task:input} : data)
+    update_task_array(arr);
+    setIsEdit(false);
   }
-  function handleDelete() {
-    let arr = tasks.filter((data) => data.id !== task.id);
-    updateTasks(arr);
+  function handleDeconste() {
+    const arr = tasks.filter((data) => data.id !== task.id);
+    update_task_array(arr);
   }
 
   return (
@@ -59,9 +42,10 @@ export default function Task({ task }) {
         <input id={task.id} hidden type="checkbox"></input>
         <p>{task.color}</p>
       </div>
-      {!isEdit ? (
-        <h1 className="flex-1 flex">{task.task}</h1>
-      ) : (
+      {
+        !isEdit ? <><h1 className="flex-1 flex">{task.task}</h1>
+        <div className="flex w-[100px] gap-20 flex-1"><FaPenToSquare onClick={() => setIsEdit(true)} /><FaX onClick={handleDeconste} />
+        </div></> : <>
         <input
           className="flex-1"
           onChange={(e) => setInput(e.target.value)}
@@ -69,15 +53,13 @@ export default function Task({ task }) {
           value={input}
           placeholder="Enter Title ..."
         ></input>
-      )}
-      <div className="flex w-[100px] gap-20 flex-1">
-        {!isEdit ? (
-          <FaPenToSquare onClick={() => setIsEdit(true)} />
-        ) : (
-          <button onClick={handleEdit}>Submit</button>
-        )}
-        <FaX onClick={handleDelete} />
-      </div>
+              <div className="flex w-[100px] gap-20 flex-1">
+              <button onClick={handleEdit}>Submit</button>
+              <FaX onClick={handleDeconste} />
+</div>
+        </>
+      }
+     
     </div>
   );
 }
