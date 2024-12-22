@@ -15,7 +15,7 @@ const colors = ["blue","green","orange","purple","red"]
     <div className='flex-1 justify-center flex items-center flex-col gap-2'>
       <h1>Filter By Color</h1>
       {
-        colors.map((data)=><FilterInput onChange={handleChange} color={data}/>)
+        colors.map((data)=><FilterInput onChange={handleChange} isChecked={choices.includes(data)} color={data}/>)
       }
     </div>
   )
