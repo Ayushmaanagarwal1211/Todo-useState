@@ -1,6 +1,6 @@
 import React, { useContext} from 'react'
 import Context from './Context'
-const filter_array = ["all","compconsted","active"]
+const filter_array = ["all","completed","active"]
  function FilterByStatus() {
   const {filter,setFilter} = useContext(Context)
   function handleChange(e){

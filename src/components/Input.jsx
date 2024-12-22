@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useReducer, useRef, useState } from 'reac
 import { useDispatch } from 'react-redux'
 import Context from './Context'
 import { getDateFromBackend } from '../../service/localStorage'
-function genId(){
+function genId(tasks){
     let max = -Infinity
-    for(const i of getDateFromBackend()){
+    for(const i of tasks){
         max = Math.max(i.id , max)
     }
     return max == -Infinity ? 0 : max+1
@@ -19,7 +19,7 @@ export default function Input() {
     }
     function handleAddTask(e){
         if(e.key == 'Enter'){
-            const arr = [...tasks,{...task, id:genId()}]
+            const arr = [...tasks,{...task, id:genId(tasks)}]
             update_task_array(arr)
             setTask({task:"" , color:"green",status:"active"})
         }

@@ -1,4 +1,4 @@
-export function getDateFromBackend(){
+export async function getDateFromBackend(){
     const data = localStorage.getItem("tasks") || '[]'
     return JSON.parse(data)
 }

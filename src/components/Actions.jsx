@@ -6,7 +6,7 @@ function Actions() {
     return tasks.map(data =>{return  {...data, status}})
   }
   function handleMarkAllCompconsted(){
-    const arr = setStatus("compconsted")
+    const arr = setStatus("completed")
     update_task_array(arr)
   }
   function handleClearAll(){
@@ -16,8 +16,8 @@ function Actions() {
   return (
     <div className='flex-1 flex justify-center items-center flex-col'>
       <h1>Actions</h1>
-      <button onClick={handleMarkAllCompconsted} className='bg-blue-500 border-white border-[1px] rounded-md text-white w-[150px] p-2 ' >Mark All Compconsted</button>
-      <button onClick={handleClearAll} className='bg-blue-500 border-white border-[1px] rounded-md text-white w-[150px] p-2 '>Clear Compconsted</button>
+      <button onClick={handleMarkAllCompconsted} className='bg-blue-500 border-white border-[1px] rounded-md text-white w-[150px] p-2 ' >Mark All completed</button>
+      <button onClick={handleClearAll} className='bg-blue-500 border-white border-[1px] rounded-md text-white w-[150px] p-2 '>Clear completed</button>
     </div>
   )
 }

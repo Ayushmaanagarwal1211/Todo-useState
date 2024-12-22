@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Input from './components/Input'
 import Tasks from './components/Tasks'
 import Actions from './components/Actions'
@@ -9,10 +9,12 @@ import Context from './components/Context'
 import { getDateFromBackend, setDataToBackend } from '../service/localStorage'
 
 function App() {
-  const [tasks,setTasks] = useState(getDateFromBackend())
+  const [tasks,setTasks] = useState(null)
   const [choices,setChoices] = useState([])
   const [filter,setFilter] = useState("all")
-  
+  useEffect(()=>{
+      getDateFromBackend().then(data=>setTasks(data))
+  },[])
   const update_task_array = (arr)=>{
     setTasks(arr)
     setDataToBackend(arr)
