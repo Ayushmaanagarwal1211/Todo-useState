@@ -9,7 +9,7 @@ export default function Task({ task }) {
   const { tasks,update_task_array } = useContext(Context);
  
   function handleClick() {
-    const arr = tasks.map((data)=>data.id == task.id ? {...data,status: task.status == "active" ? "compconsted" : "active"} : data)
+    const arr = tasks.map((data)=>data.id == task.id ? {...data,status: task.status == "active" ? "completed" : "active"} : data)
     update_task_array(arr);
   }
   function handleEdit() {
